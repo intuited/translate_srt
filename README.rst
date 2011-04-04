@@ -21,3 +21,11 @@ ISSUES
 -   I don't really know what the format for an .srt file is supposed to be.
     The routines seem to work for the files I'm using.
     See the source for details on my assumptions.
+
+-   Caption text is joined into a single line.
+    This may cause problems with some players (I really don't know).
+    It will also break captions with two speakers such as ::
+        - Interrupting cow wh--
+        - MOOOO!!!
+    This line would end up being displayed as ::
+        - Interrupting cow wh-- - MOOOO!!!
