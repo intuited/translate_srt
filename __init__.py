@@ -47,7 +47,7 @@ def make_caption_regexp():
     until_double_newline = r'(?:(?!\n\n).)*'
     parts['content'] = r'(?P<content>{0})'.format(until_double_newline)
 
-    template = r'{id}\n{timecode}\n{content}'
+    template = r'{id}\n{timecode}(?:\n{content})?'
     return re.compile(template.format(**parts), re.DOTALL)
 
 def translate_caption(caption,
@@ -61,7 +61,7 @@ def translate_caption(caption,
         dump('Failed match', caption)
         return None
 
-    parts = match.groupdict()
+    parts = match.groupdict('')
 
     content = ' '.join(line.strip() for line in parts['content'].split('\n'))
     parts['content'] = translate(content)
