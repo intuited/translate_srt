@@ -18,13 +18,17 @@ def dump(title, data, out=sys.stderr):
     out.write(title + ':\n')
     out.write(indent(text) + '\n')
 
-dump_original = functools.partial(dump, 'Original')
+dump_original = partial(dump, 'Original')
+dump_parsed = partial(dump, 'Parsed')
+dump_translated = partial(dump, 'Translation')
 
 def no_op(*args, **kwargs):
     pass
 
 # Comment out to enable debugging
 dump_original = no_op
+dump_parsed = no_op
+dump_translated = no_op
 
 def convert_enc(text, encoding='latin1'):
     return text.decode(encoding).encode('utf-8')
@@ -63,8 +67,12 @@ def translate_caption(caption,
 
     parts = match.groupdict('')
 
+    dump_parsed(parts)
+
     content = ' '.join(line.strip() for line in parts['content'].split('\n'))
     parts['content'] = translate(content)
+
+    dump_translated(parts)
 
     template = '{id}\n{timecode}\n{content}'
     return template.format(**parts)
