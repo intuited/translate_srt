@@ -73,6 +73,7 @@ def translate_file(file_, encoding='latin1', out=sys.stdout,
                    translate_caption=translate_caption):
     text = file_.read()
     text = convert_enc(text, encoding)
+    text = text.rstrip()
 
     # Captions are delimited by two or more newlines.
     captions = re.split(r'\n{2,}', text)
